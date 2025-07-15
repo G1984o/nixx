@@ -16,17 +16,17 @@
         config.allowUnfree = true;
       };
     in {
-      nixosConfigurations.gto = nixpkgs.lib.nixosSystem {
+      nixosConfigurations.walden = nixpkgs.lib.nixosSystem {
         inherit system;
         modules = [
           ./modules/system.nix
           ./modules/hyprland.nix
-          ./modules/user-gto.nix
+          ./modules/nixos-user-walden.nix
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.users.walden= import ./modules/user-walden.nix;
+            home-manager.users.walden= import ./modules/home-user-walden.nix;
           }
         ];
       };
