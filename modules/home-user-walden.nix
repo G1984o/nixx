@@ -4,7 +4,7 @@
   home.username = "walden";
   home.homeDirectory = "/home/walden";
 
-  home.stateVersion = "24.05";
+  home.stateVersion = "25.05";
 
   home.packages = with pkgs; [
     neofetch
@@ -13,13 +13,19 @@
     starship
   ];
 
-  programs.starship.enable = true;
-  programs.zsh.enable = true;
+ # CLI & Shell
+  programs.fish.enable = true;
+  programs.starship = {
+    enable = true;
+    enableFishIntegration = true;
+  };
 
   home.file.".config/hypr/hyprland.conf".text = ''
     monitor=,preferred,auto,1
     exec-once=swww init && swww img /home/walden/wall.png
-    exec-once=waybar
+    exec-once=waybar &
+    exec-once=mako &
+
     bind=SUPER,Return,exec,kitty
     bind=SUPER,Q,killactive
     bind=SUPER,D,exec,rofi -show drun
@@ -40,5 +46,13 @@
       font-size: 13px;
     }
   '';
+  
+  # Notification daemon
+  services.mako.enable = true;
+
+  home.packages = with pkgs; [
+    rofi-wayland
+    nautilus
+  ];
 }
 
